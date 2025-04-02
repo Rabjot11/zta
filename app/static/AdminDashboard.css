@@ -1,0 +1,445 @@
+/* Reset default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* General Styling */
+body {
+  background-color: #f4f4f4;
+}
+
+/* Dashboard Layout */
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #007bff;
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar .logo {
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar nav ul li {
+  padding: 12px;
+}
+
+.sidebar nav ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  display: block;
+  transition: background 0.3s;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.sidebar nav ul li a:hover {
+  background-color: #0056b3;
+}
+
+/* Main Content */
+.content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #007bff;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 5px;
+}
+
+.navbar h1 {
+  font-size: 22px;
+}
+
+/* Notification */
+.notification {
+  position: relative;
+}
+
+.notif-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+}
+
+.notif-dropdown {
+  display: none;
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background-color: white;
+  color: black;
+  width: 200px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.notification:hover .notif-dropdown {
+  display: block;
+}
+
+/* Logout Button */
+.logout-btn {
+  background-color: red;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.logout-btn:hover {
+  background-color: darkred;
+}
+
+/* Dashboard Sections */
+#dashboard-section,
+#users-section {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+/* Analytics Section */
+.analytics {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  flex: 1;
+}
+
+.card h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+/* Profile Edit Form */
+.edit-form {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.form-group input:disabled {
+  background: #f0f0f0;
+  cursor: not-allowed;
+}
+
+/* 2FA QR Code */
+.qr-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.qr-container h3 {
+  font-size: 18px;
+  color: #333;
+}
+
+.qr-image {
+  width: 150px;
+  height: 150px;
+  margin-top: 10px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+}
+
+/* Buttons */
+button,
+.update-btn {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover,
+.update-btn:hover {
+  background: #0056b3;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+table th,
+table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+table th {
+  background: #007bff;
+  color: white;
+}
+
+table tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+/* === Search Bar Styling === */
+#searchUser {
+  width: 100%;
+  max-width: 300px; /* Adjust width as needed */
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #007bff;
+  border-radius: 5px;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+}
+
+#searchUser:focus {
+  border-color: #0056b3;
+  box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
+}
+
+#searchUser::placeholder {
+  color: #aaa;
+}
+
+/* Search Bar Wrapper */
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+/* Optional: Add a search icon */
+.search-container::before {
+  content: "🔍";
+  font-size: 18px;
+  color: #007bff;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .sidebar nav ul li {
+    display: inline-block;
+    margin: 0 10px;
+  }
+
+  .analytics {
+    flex-direction: column;
+  }
+
+  .navbar {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* === Modal Styling === */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  width: 400px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  text-align: center;
+  background-color: white;
+  margin: 10% auto;
+  border-radius: 10px;
+}
+
+/* === Close Button Styling === */
+.close {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 22px;
+  cursor: pointer;
+  color: #555;
+  float: right;
+}
+
+/* === Form Styling === */
+#editUserForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#editUserForm label {
+  font-weight: bold;
+  text-align: left;
+  display: block;
+}
+
+#editUserForm input,
+#editUserForm select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#editUserForm button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+#editUserForm button:hover {
+  background-color: #0056b3;
+}
+
+/* === Form Styling === */
+#addUserForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#addUserForm label {
+  font-weight: bold;
+  text-align: left;
+  display: block;
+}
+
+#addUserForm input,
+#editUserForm select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#addUserForm button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+#addUserForm button:hover {
+  background-color: #0056b3;
+}
+
+/* === QR Code Section === */
+#qrCodeSection {
+  display: none; /* Hidden by default */
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #f9f9f9;
+}
+
+#qrCodeSection h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+#qrImage {
+  width: 150px;
+  height: 150px;
+  border: 2px solid black;
+  padding: 5px;
+  background: white;
+}

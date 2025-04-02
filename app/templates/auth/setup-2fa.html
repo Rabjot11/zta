@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Setup 2FA</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <div class="navbar">
+      <a href="{{ url_for('routes.home') }}" class="logo">ZTA</a>
+      <a href="{{ url_for('auth.logout') }}" class="logout-btn">Logout</a>
+    </div>
+
+    <div class="container">
+      <div class="alert success">
+        You are registered. You have to enable 2-Factor Authentication first to
+        login.
+      </div>
+
+      <h2>Instructions!</h2>
+      <ul>
+        <li>
+          Download
+          <a
+            href="https://support.google.com/accounts/answer/1066447"
+            target="_blank"
+            >Google Authenticator</a
+          >
+          on your mobile.
+        </li>
+        <li>Set up a new authenticator.</li>
+        <li>
+          Once you have scanned the QR, please click
+          <a href="{{ url_for('auth.verify_otp') }}">here</a>.
+        </li>
+      </ul>
+
+      <div class="qr-container">
+        <img src="{{ qr_code }}" alt="QR Code" />
+      </div>
+
+      <div class="secret-container">
+        <label for="secret">Secret Token</label>
+        <input type="text" id="secret" value="{{ secret }}" readonly />
+        <button onclick="copySecret()">Copy Secret</button>
+      </div>
+
+      <p>
+        Once you have scanned the QR, please click
+        <a href="{{ url_for('auth.verify_otp') }}">here</a>.
+      </p>
+    </div>
+
+    <script>
+      function copySecret() {
+        var copyText = document.getElementById("secret");
+        copyText.select();
+        document.execCommand("copy");
+        alert("Secret copied to clipboard!");
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,143 @@
+{% extends "base.html" %} {% block content %}
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2 class="logo">User Dashboard</h2>
+    <nav>
+      <ul>
+        <li><a href="#" onclick="showSection('dashboard')">Dashboard</a></li>
+        <li><a href="#" onclick="showSection('profile')">Profile</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="content">
+    <header class="navbar">
+      <h1 id="page-title">Dashboard</h1>
+      <div class="notification">
+        <button class="notif-btn">🔔</button>
+        <div class="notif-dropdown">
+          <p>No new notifications</p>
+        </div>
+      </div>
+      <a href="{{ url_for('auth.logout') }}" class="logout-btn">Logout</a>
+    </header>
+
+    <!-- Dashboard Section -->
+    <div id="dashboard-section">
+      <h2>Welcome, {{ current_user.username }}!</h2>
+      <div class="profile-details">
+        <p><strong>Username:</strong> {{ current_user.username }}</p>
+        <p><strong>Email:</strong> {{ current_user.email }}</p>
+        <p><strong>Role:</strong> User</p>
+      </div>
+    </div>
+
+    <!-- Documents Section -->
+    <div id="documents-section" style="display: none">
+      <h2>Your Documents</h2>
+      <input type="file" id="uploadDocument" />
+      <button onclick="uploadDocument()">Upload</button>
+      <table>
+        <thead>
+          <tr>
+            <th>Document Name</th>
+            <th>Date Uploaded</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="document-list">
+          <!-- Documents will be populated here -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Notifications Section -->
+    <div id="notifications-section" style="display: none">
+      <h2>Notifications</h2>
+      <ul id="notification-list">
+        <li>No new notifications</li>
+      </ul>
+    </div>
+
+    <!-- Profile Section -->
+    <div id="profile-section" style="display: none">
+      <h2>Edit Profile</h2>
+      <form method="POST" class="edit-form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            name="username"
+            value="{{ current_user.username }}"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            value="{{ current_user.email }}"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password"
+            >New Password (Leave blank to keep the same)</label
+          >
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter new password"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="role">Role</label>
+          <select name="role" disabled>
+            <option value="user" selected>User</option>
+          </select>
+        </div>
+
+        <div class="qr-container">
+          <h3>2FA QR Code</h3>
+          <img src="{{ qr_code }}" alt="QR Code" class="qr-image" />
+        </div>
+
+        <button type="submit" class="update-btn">Update Profile</button>
+      </form>
+    </div>
+  </main>
+</div>
+
+<!-- ✅ JavaScript Fixes -->
+<script>
+  function showSection(sectionId) {
+    // Hide all sections
+    const sections = document.querySelectorAll("main > div");
+    sections.forEach((section) => (section.style.display = "none"));
+
+    // Show the selected section
+    document.getElementById(sectionId + "-section").style.display = "block";
+
+    // Update the page title
+    document.getElementById("page-title").innerText =
+      sectionId.charAt(0).toUpperCase() + sectionId.slice(1);
+  }
+
+  function toggleEditMode() {
+    showSection("profile"); // Show Profile Section when clicking Edit
+  }
+</script>
+
+<!-- ✅ Correctly linking CSS -->
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='UserDashboard.css') }}"
+/>
+
+{% endblock %}

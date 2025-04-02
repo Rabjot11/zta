@@ -1,0 +1,37 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zero Trust Architecture (ZTA) App</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <header>
+      <h1>Welcome to Zero Trust Architecture (ZTA) App</h1>
+    </header>
+
+    <main>
+      <p>
+        Zero Trust Architecture (ZTA) is a security model that assumes no
+        entity—inside or outside the network—is automatically trusted. It
+        requires strict identity verification and continuous authentication for
+        accessing resources.
+      </p>
+
+      <p>
+        Our app implements ZTA principles to provide a secure authentication
+        system with multi-factor authentication (MFA) and strict access control.
+      </p>
+
+      <div class="buttons">
+        <a href="{{ url_for('auth.login') }}" class="btn">Login</a>
+        <a href="{{ url_for('auth.register') }}" class="btn">Register</a>
+      </div>
+    </main>
+  </body>
+</html>

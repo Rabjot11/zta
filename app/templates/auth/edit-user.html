@@ -1,0 +1,63 @@
+{% extends "base.html" %} 
+{% block content %}
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2 class="logo">ZTA Admin</h2>
+    <nav>
+      <ul>
+        <li><a href="#" onclick="showSection('dashboard')">Dashboard</a></li>
+        <li><a href="#" onclick="showSection('users')">Users</a></li>
+        <li><a href="#" onclick="showSection('documents')">Documents</a></li>
+        <li><a href="#" onclick="showSection('analytics')">Analytics</a></li>
+        <li><a href="#" onclick="showSection('settings')">Settings</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="content">
+    <header class="navbar">
+      <h1 id="page-title">Edit User</h1>
+      <a href="{{ url_for('auth.logout') }}" class="logout-btn">Logout</a>
+    </header>
+
+    <div class="edit-profile-container">
+      <h2>Edit Profile</h2>
+      <form method="POST" class="edit-form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" name="username" value="{{ user.username }}" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" name="email" value="{{ user.email }}" required />
+        </div>
+
+        <div class="form-group">
+          <label for="password">New Password (Leave blank to keep the same)</label>
+          <input type="password" name="password" placeholder="Enter new password" />
+        </div>
+
+        <div class="form-group">
+          <label for="role">Role</label>
+          <select name="role">
+            <option value="user" {% if user.role == "user" %} selected {% endif %}>User</option>
+            <option value="admin" {% if user.role == "admin" %} selected {% endif %}>Admin</option>
+          </select>
+        </div>
+
+        <div class="qr-container">
+          <h3>2FA QR Code</h3>
+          <img src="{{ qr_code }}" alt="QR Code" class="qr-image" />
+        </div>
+
+        <button type="submit" class="update-btn">Update Profile</button>
+      </form>
+    </div>
+  </main>
+</div>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='edit_user.css') }}" />
+{% endblock %}

@@ -1,0 +1,206 @@
+{% extends "base.html" %} {% block content %}
+<!-- Add User Modal -->
+<div id="addUserModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="toggleModal('addUserModal', false)"
+      >&times;</span
+    >
+    <h2>Add User</h2>
+    <form id="addUserForm">
+      <label>Username:</label>
+      <input type="text" id="newUsername" required />
+
+      <label>Email:</label>
+      <input type="email" id="newEmail" required />
+
+      <label>Password:</label>
+      <input type="password" id="newPassword" required />
+
+      <label>Role:</label>
+      <select id="newRole" required>
+        <option value="">Select Role</option>
+        <option value="admin">admin</option>
+        <option value="user">user</option>
+      </select>
+
+      <button type="button" onclick="submitUserForm()">Next</button>
+    </form>
+  </div>
+</div>
+
+<!-- Edit User Modal -->
+<div id="editUserModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="toggleModal('editUserModal', false)"
+      >&times;</span
+    >
+    <h2>Edit User</h2>
+    <form id="editUserForm">
+      <input type="hidden" id="editUserId" />
+
+      <label>Username:</label>
+      <input type="text" id="editUsername" required />
+
+      <label>Email:</label>
+      <input type="email" id="editEmail" required />
+
+      <label>Role:</label>
+      <select id="editRole" required>
+        <option value="admin">admin</option>
+        <option value="user">user</option>
+        <!-- Fixed typo -->
+      </select>
+
+      <button type="button" onclick="submitEditUserForm()">Save Changes</button>
+    </form>
+
+    <!-- ✅ QR Code Now Inside Edit Modal -->
+    <div
+      id="qrCodeSection"
+      style="display: none; text-align: center; margin-top: 20px"
+    >
+      <h3>Scan this QR Code for 2FA</h3>
+      <img
+        id="qrImage"
+        src=""
+        alt="QR Code"
+        style="
+          width: 150px;
+          height: 150px;
+          border: 2px solid black;
+          padding: 5px;
+        "
+      />
+    </div>
+  </div>
+</div>
+
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2 class="logo">ZTA Admin</h2>
+    <nav>
+      <ul>
+        <li><a href="#" onclick="showSection('dashboard')">Dashboard</a></li>
+        <li><a href="#" onclick="showSection('users')">Users</a></li>
+        <li><a href="#" onclick="showSection('settings')">Settings</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="content">
+    <header class="navbar">
+      <h1 id="page-title">Dashboard</h1>
+      <div class="notification">
+        <button class="notif-btn">🔔</button>
+        <div class="notif-dropdown">
+          <p>No new notifications</p>
+        </div>
+      </div>
+      <a href="{{ url_for('auth.logout') }}" class="logout-btn">Logout</a>
+    </header>
+
+    <!-- Dashboard Section -->
+    <div id="dashboard-section">
+      <h2>Welcome, {{ current_user.username }}!</h2>
+      <section class="analytics">
+        <div class="card">
+          <h3>Users</h3>
+          <p>{{ user_count }}</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- Users Section -->
+    <div id="users-section" style="display: none">
+      <h2>Users</h2>
+      <div class="search-container">
+        <input
+          type="text"
+          id="searchUser"
+          placeholder="Search user..."
+          onkeyup="searchUsers()"
+        />
+      </div>
+      <button onclick="addUser()">+ Add User</button>
+      <table>
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="user-list"></tbody>
+      </table>
+    </div>
+
+    <!-- Other Sections -->
+    <div id="documents-section" style="display: none">
+      <h2>Documents Section</h2>
+    </div>
+    <div id="analytics-section" style="display: none">
+      <h2>Analytics Section</h2>
+    </div>
+
+    <!-- Updated Settings Section -->
+    <div id="settings-section" style="display: none">
+      <h2>Edit Admin Profile</h2>
+      <form method="POST" class="edit-form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            name="username"
+            value="{{ current_user.username }}"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            value="{{ current_user.email }}"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password"
+            >New Password (Leave blank to keep the same)</label
+          >
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter new password"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="role">Role</label>
+          <select name="role" disabled>
+            <option value="admin" selected>Admin</option>
+          </select>
+        </div>
+
+        <div class="qr-container">
+          <h3>2FA QR Code</h3>
+          <img src="{{ qr_code }}" alt="QR Code" class="qr-image" />
+        </div>
+
+        <button type="submit" class="update-btn">Update Profile</button>
+      </form>
+    </div>
+  </main>
+</div>
+
+<script src="{{ url_for('static', filename='AdminDashboard.js') }}"></script>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='AdminDashboard.css') }}"
+/>
+{% endblock %}

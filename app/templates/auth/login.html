@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <div class="navbar">
+      <a href="{{ url_for('routes.home') }}" class="logo">ZTA</a>
+    </div>
+
+    <div class="container">
+      {% if error %}
+      <div class="alert">
+        <span
+          class="closebtn"
+          onclick="this.parentElement.style.display='none';"
+          >&times;</span
+        >
+        {{ error }}
+      </div>
+      {% endif %}
+
+      <h2>Please sign in</h2>
+
+      <form method="POST" action="{{ url_for('auth.login') }}">
+        <div class="input-container">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            required
+            value="{{ request.form.username }}"
+          />
+        </div>
+
+        <div class="input-container">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+
+        <button type="submit" class="btn">Sign in</button>
+      </form>
+
+      <p>New User? <a href="{{ url_for('auth.register') }}">Register now</a></p>
+    </div>
+  </body>
+</html>
